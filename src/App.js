@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
-function App() {
+import React, { useState } from 'react';
+import Navbar from './Component/Navbar';
+import Homepage from './Component/Homepage';
+import Calculator from './Component/Calculator';
+import Msg from './Component/msg';
+
+const App = () => {
+  const [activeComponent, setActiveComponent] = useState('home');
+
+  const handleButtonClick = (component) => {
+    setActiveComponent(component);
+  };
+
+  const renderActiveComponent = () => {
+    switch (activeComponent) {
+      case 'home':
+        return <Homepage />;
+      case 'calculator':
+        return <Calculator />;
+      case 'quote':
+        return <Msg />
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar onButtonClick={handleButtonClick} />
+      {renderActiveComponent()}
     </div>
   );
-}
+};
 
 export default App;
